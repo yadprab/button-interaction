@@ -11,6 +11,7 @@ function MainComp() {
             <AnimateSharedLayout>
               <motion.button
                 id="dev--button"
+                aria-label='button'
                 className={Button.DEV ? "active" : "notActive"}
                 onClick={() => {
                   setButton({ DEV: true, DESIGN: false });
