@@ -1,70 +1,214 @@
-# Getting Started with Create React App
+[Live site](https://button-interaction.vercel.app/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Repo](https://github.com/yadprab/button-interaction)
 
-## Available Scripts
 
-In the project directory, you can run:
+When I noticed this UI button interaction, I was like 
 
-### `npm start`
+![interaction example plus reaction gif](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ducjdjxx9ea7wgolnpfp.gif)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- set up a react project
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+npx create-react-app
+```
 
-### `npm test`
+- Add framer-motion
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ ```
+ npm install framer-motion  
+ ```
+Now everything is ready.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This is how we're going to achieve this effect...!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Project structure](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yxy3u9o8ukbsat2ty4lb.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+HTML STRUCTURE
 
-### `npm run eject`
+Create the main component, and add the button wrapper and button elements.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![HTML STRUCTURE](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wwdgalnldbpo4tv6cyk9.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![main component](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hhfq3xufilnzb62sk1wk.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Now add the main component and styles to our App component.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![App component](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7nsci5umsqnkzzidawlc.png)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Add some default styles to our Project
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```css
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+:root {
+    --bg: hsla(330, 6%, 12%, 1);
+    --button: hsla(160, 27%, 98%, 1);
+    --buttonText: hsla(330, 8%, 20%, 1);
+    --notSelected: hsla(330, 6%, 46%, 1);
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+}
 
-### Advanced Configuration
+html {
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    min-width: 100%;
+    overflow-x: hidden;
+    font-size: 100%;
 
-### Deployment
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+}
+
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+svg {
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+}
+
+body {
+    background-color: var(--bg);
+
+    font-family: 'Inter',
+        sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+    position: relative;
+    transition: background 0.4s ease-in-out;
+}
+
+```
+
+
+
+## Fun part
+![this is where fun beigns gif](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ntbxhkuqn7qliinrqsu6.gif)
+
+
+
+
+
+## Create a Separate component for our animation(span element)
+
+![Animation component](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/70oibo7e4i4nsxfle2a5.png)
+
+
+Now import motion from framer motion add it to our span element and add a **layoutId button(will explain about this later**).
+
+![added motion](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rkprzm7fip57dngufkot.png)
+
+
+## Setting up a state using useState hook 
+![state](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/alo85wruzwgbf6zc9fqd.png)
+
+Now add motion to our both buttons and wrap both buttons by **Animateshared layout** from framer motion.
+
+1. Based on the state,  we're going to add a class to our button element active and non-active class.
+
+2. Based on the state, we're going to render the Anicomp.
+
+3. Now add the Onclick event to both buttons and set the button state regarding each button.
+
+![based on state we add calss and render component](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ep44cadcyghnrcv8qb6j.png)![based on state we add calss and render component](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qcdptiiqahlqa66pbese.png)
+
+
+## Button styles
+
+```css
+ button {
+            appearance: none;
+            border: none;
+            background-color: unset;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            padding: 1.125em 1.5em;
+            position: relative;
+            border-radius: 50px;
+            cursor: pointer;
+  }
+
+
+//  active and non active classes
+        .active {
+            color: var(--buttonText);
+        }
+
+        .notActive {
+            color: var(--notSelected);
+        }
+
+ //span element styles
+    .button--bg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        right: 0;
+        background: var(--button);
+        display: block;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        border-radius: 50px;
+    }
+
+```
+
+##Final Output
+![Animation](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hnntf22q1bfzd8h964y0.gif)
+
+
+## AnimateShared Layout
+Animateshared layout changes across, and between, multiple components. with help of the same layout id,  framer motion shares the transition across the components.
+
+More about AnimateShared layout and Layout animations using framer motion.
+
+[Layout animations indepth](https://youtu.be/5-JIu0u42Jc)
+
+[AnimateShared Layout indepth](https://www.framer.com/docs/animate-shared-layout/)
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
